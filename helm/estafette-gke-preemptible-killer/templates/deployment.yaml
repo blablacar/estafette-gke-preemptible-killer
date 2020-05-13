@@ -18,15 +18,14 @@ spec:
       labels:
         app.kubernetes.io/name: {{ include "estafette-gke-preemptible-killer.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
-        {{- if .Chart.AppVersion }}
-        app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-        {{- end }}
         {{- range $key, $value := .Values.extraPodLabels }}
         {{ $key }}: {{ $value }}
         {{- end }}
       annotations:
+        {{- if and .Values.prometheus.enabled (not .Values.prometheus.servicemonitor.enabled) }}
         prometheus.io/scrape: "true"
         prometheus.io/port: "9101"
+        {{- end }}
         checksum/secrets: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
     spec:
     {{- with .Values.imagePullSecrets }}
