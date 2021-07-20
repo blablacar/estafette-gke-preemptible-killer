@@ -104,12 +104,7 @@ extraPodLabels: {}
 # prometheus monitoring
 prometheus:
   enabled: true
-  servicemonitor:
+  podmonitor:
     # if service monitor is enabled pormetheus scraping annotions are removed
     enabled: false
-    prometheusInstance: default
-    targetPort: 9101
-    path: /metrics
-    interval: 60s
-    scrapeTimeout: 30s
     labels: {}

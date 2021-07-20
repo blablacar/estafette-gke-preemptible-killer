@@ -22,7 +22,7 @@ spec:
         {{ $key }}: {{ $value }}
         {{- end }}
       annotations:
-        {{- if and .Values.prometheus.enabled (not .Values.prometheus.servicemonitor.enabled) }}
+        {{- if and .Values.prometheus.enabled (not .Values.prometheus.podmonitor.enabled) }}
         prometheus.io/scrape: "true"
         prometheus.io/port: "9101"
         {{- end }}
